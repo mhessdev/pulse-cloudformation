@@ -1,0 +1,112 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Metadata": {
+		"AWS::CloudFormation::Designer": {
+			"78fe76d7-1962-4cfd-80c9-5b8ae475d48d": {
+				"size": {
+					"width": 60,
+					"height": 60
+				},
+				"position": {
+					"x": 551,
+					"y": 162
+				},
+				"z": 0,
+				"dependson": [
+					"88ff100b-7f2c-4e72-8378-9c938bfb917a",
+					"89771158-0bb9-455b-a7a8-cdd442661214"
+				]
+			},
+			"88ff100b-7f2c-4e72-8378-9c938bfb917a": {
+				"size": {
+					"width": 60,
+					"height": 60
+				},
+				"position": {
+					"x": 420,
+					"y": 160
+				},
+				"z": 0,
+				"embeds": []
+			},
+			"f7493b89-51e5-4ff6-8016-df9cd18f92f1": {
+				"source": {
+					"id": "78fe76d7-1962-4cfd-80c9-5b8ae475d48d"
+				},
+				"target": {
+					"id": "88ff100b-7f2c-4e72-8378-9c938bfb917a"
+				},
+				"z": 1
+			},
+			"3d7b9d9c-0d39-4ac2-af00-8ae0c5ec1feb": {
+				"source": {
+					"id": "78fe76d7-1962-4cfd-80c9-5b8ae475d48d"
+				},
+				"target": {
+					"id": "89771158-0bb9-455b-a7a8-cdd442661214"
+				},
+				"z": 2
+			},
+			"f7a968df-8944-4d30-ae53-4a83091e9872": {
+				"size": {
+					"width": 60,
+					"height": 60
+				},
+				"position": {
+					"x": 590,
+					"y": 202
+				},
+				"z": 0,
+				"dependson": ["88ff100b-7f2c-4e72-8378-9c938bfb917a"]
+			},
+			"ff835c06-b794-4a05-9be1-cbacf40c232e": {
+				"source": {
+					"id": "f7a968df-8944-4d30-ae53-4a83091e9872"
+				},
+				"target": {
+					"id": "88ff100b-7f2c-4e72-8378-9c938bfb917a"
+				},
+				"z": 1
+			}
+		}
+	},
+	"Resources": {
+		"RDSDBPG1K63D": {
+			"Type": "AWS::RDS::DBParameterGroup",
+			"Properties": {
+				"DBParameterGroupName": "PulseGroup",
+				"Description": "Parameter group for Pulse enabled databases",
+				"Family": "postgres14",
+				"Parameters": {
+					"rds.logical_replication": 1
+				}
+			},
+			"Metadata": {
+				"AWS::CloudFormation::Designer": {
+					"id": "88ff100b-7f2c-4e72-8378-9c938bfb917a"
+				}
+			}
+		},
+		"RDSDBI1JYIE": {
+			"Type": "AWS::RDS::DBInstance",
+			"Properties": {
+				"DBParameterGroupName": "PulseGroup",
+				"DBInstanceClass": "db.t3.micro",
+				"AllocatedStorage": "5",
+				"Engine": "postgres",
+				"EngineVersion": "14.7",
+				"MasterUsername": "postgres",
+				"MasterUserPassword": "password",
+				"DBInstanceIdentifier": "pulse-db",
+				"PubliclyAccessible": "true"
+			},
+			"DeletionPolicy": "Snapshot",
+			"Metadata": {
+				"AWS::CloudFormation::Designer": {
+					"id": "f7a968df-8944-4d30-ae53-4a83091e9872"
+				}
+			},
+			"DependsOn": ["RDSDBPG1K63D"]
+		}
+	}
+}
